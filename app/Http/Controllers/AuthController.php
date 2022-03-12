@@ -60,8 +60,12 @@ class AuthController extends Controller
         $user = auth()->user();
         $content = new Content;
         $avatar = new Avatar;
-        $my_avatar = Avatar::where('user',$user->id)->first()->avatar;
-        return view('cabinet',['content' => $content->orderBy('id','desc')->get(),'user' => $user,'avatar' => $avatar,'my_avatar' => $my_avatar]);
+        if(Avatar::where('user',$user->id)->count() > 0){
+            $my_avatar = Avatar::where('user',$user->id)->first()->avatar;
+            return view('cabinet',['content' => $content->orderBy('id','desc')->get(),'user' => $user,'avatar' => $avatar,'my_avatar' => $my_avatar]);
+        } else {
+            return view('cabinet',['content' => $content->orderBy('id','desc')->get(),'user' => $user,'avatar' => $avatar]);
+        }
     }
 
     public function search(){
