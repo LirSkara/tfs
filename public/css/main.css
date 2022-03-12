@@ -1,6 +1,21 @@
 .width-custom {
     width: 40%;
 }
+.img-ava-lent {
+    object-fit: cover;
+    height: 36px;
+    width:  36px;
+}
+.img-ava-cabinet {
+    object-fit: cover;
+    height: 80px;
+    width:  80px;
+}
+.img-lent-cabinet {
+    object-fit: cover;
+    width: 100%;
+    height: 120px;
+}
 @media only screen and (max-device-width: 480px) {
     .width-custom {
         width: 100%;

@@ -13,6 +13,15 @@
     <title>@yield('title')</title>
   </head>
   <body>
+    <nav class="fixed-bottom bg-white border-top">
+      <div class="d-flex bd-highlight text-center fs-2">
+        <div class="p-2 flex-fill bd-highlight"><a href="/"><i class="bi bi-house-door"></i></a></div>
+        <div class="p-2 flex-fill bd-highlight"><i class="bi bi-search"></i></div>
+        <div class="p-2 flex-fill bd-highlight"><i class="bi bi-plus-circle-fill"></i></div>
+        <div class="p-2 flex-fill bd-highlight"><i class="bi bi-heart"></i></div>
+        <div class="p-2 flex-fill bd-highlight"><a href="/cabinet"><img src="http://5dreal.com/wp-content/uploads/2016/03/image-1-1024x576.jpg" class="rounded-circle img-ava-lent" alt=""></a></div>
+      </div>
+    </nav>
     <div class="bg-light" style="height: 100vh">
       @yield('content')
     </div>
