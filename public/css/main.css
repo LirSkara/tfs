@@ -1,0 +1,8 @@
+.width-custom {
+    width: 40%;
+}
+@media only screen and (max-device-width: 480px) {
+    .width-custom {
+        width: 100%;
+    }
+}
