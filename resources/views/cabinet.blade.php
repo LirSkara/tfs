@@ -1,9 +1,9 @@
-@extends('layout.main')
+@extends('layout.notop')
 @section('title')Главная страница@endsection
 @section('content')
     <div class="container px-0 pt-lg-5">
-        <div class="fs-5 p-3">
-            <div class="d-flex bd-highlight">
+        <div class="fs-5 py-2">
+            <div class="d-flex bd-highlight border-bottom px-3 pb-2">
                 <div class="w-100 bd-highlight">
                     <div class="fw-normal fs-2">{{ Auth::user()->login }}</div>
                 </div>
@@ -23,10 +23,14 @@
         <div class="">
             <div class="d-flex bd-highlight text-center">
                 <div class="p-2 flex-fill bd-highlight">
-                    <img src="http://5dreal.com/wp-content/uploads/2016/03/image-1-1024x576.jpg" class="rounded-circle img-ava-cabinet" alt="">
+                    @if($avatar->where('user',$user->id)->count() == 0)
+                    <a href="" data-bs-toggle="modal" data-bs-target="#avatar"><img src="/assets/images/avatar.png" alt="mdo" class="rounded-circle img-ava-cabinet"></a>
+                    @else
+                        <a href="" data-bs-toggle="modal" data-bs-target="#avatar"><img src="/storage/{{$user->id}}/avatars/{{$my_avatar}}" class="rounded-circle img-ava-cabinet" alt=""></a>
+                    @endif
                 </div>
                 <div class="p-2 flex-fill bd-highlight align-self-center">
-                    <div class="fs-4">0</div>
+                    <div class="fs-4">{{$content->count()}}</div>
                     <span class="small fw-light">Публикации</span>
                 </div>
                 <div class="p-2 flex-fill bd-highlight align-self-center">
@@ -44,7 +48,31 @@
 
               <div class="d-flex bd-highlight">
                 <div class="p-2 flex-fill bd-highlight">
-                    <button class="btn btn-outline-secondary">Редактировать профиль</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="avatar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header border-bottom-0">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/avatar" class="pb-3" enctype="multipart/form-data" method="POST">
+                                        @csrf
+                                        <div class="text-center px-3">
+                                            @if($avatar->where('user',$user->id)->count() == 0)
+                                                <img src="/assets/images/avatar.png" alt="mdo" class="rounded-circle mb-3" width="180" height="180">
+                                            @else
+                                                <img src="/storage/{{$user->id}}/avatars/{{$my_avatar}}" alt="mdo" class="rounded-circle mb-3" width="180" height="180">
+                                            @endif
+                                        </div>
+                                        <input class="form-control mb-1" name="avatar" type="file" id="avatar">
+                                        <button class="btn btn-secondary w-100">Обновить аватарку</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
                 </div>
               </div>
         </div>

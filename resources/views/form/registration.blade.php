@@ -1,4 +1,4 @@
-@extends('layout.main')
+@extends('layout.clean')
 @section('title')Регистрация@endsection
 @section('content')
     <div class="container pt-lg-5">

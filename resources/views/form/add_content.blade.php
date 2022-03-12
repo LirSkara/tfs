@@ -1,4 +1,4 @@
-@extends('layout.main')
+@extends('layout.notop')
 @section('title')Главная страница@endsection
 @section('content')
     <div class="container px-0 pt-lg-5">

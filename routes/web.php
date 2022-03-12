@@ -21,5 +21,7 @@ Route::get('/exit', [AuthController::class,'exit']);
 Route::get('/cabinet', [AuthController::class,'cabinet'])->name('cabinet');
 Route::get('/search', [AuthController::class,'search'])->name('search');
 
+Route::post('/avatar', [AuthController::class,'avatar']);
+
 Route::get('/add_content', [AuthController::class,'add_content'])->name('add_content');
 Route::post('/add_content', [AuthController::class,'add_content_p']);
