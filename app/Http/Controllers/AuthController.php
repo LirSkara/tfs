@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Content;
 
 class AuthController extends Controller
 {
@@ -54,7 +56,43 @@ class AuthController extends Controller
     }
 
     public function cabinet(){
-        return view('cabinet');
+        $user = auth()->user();
+        $content = new Content;
+        return view('cabinet',['content' => $content->orderBy('id','desc')->get(),'user' => $user]);
+    }
+
+    public function search(){
+        $user = new User;
+        $content = new Content;
+        return view('search',['content' => $content->orderBy('id','desc')->get(),'user' => $user]);
+}
+
+    public function add_content(){
+        return view('form.add_content');
+    }
+
+    public function add_content_p(Request $request){
+        $valid = $request->validate([
+            'media' => ['required', 'image', 'mimetypes:image/jpeg,image/png']
+         ]);
+
+         $user = auth()->user();
+
+         $review = new Content;
+         
+         // загрузка файла
+        $file = $request->file('media');
+        $upload_folder = "public/$user->id/media"; //Создается автоматически
+        $filename = $file->getClientOriginalName(); //Сохраняем исходное название изображения
+
+        $review->media = $filename;
+        $review->description = $request->input('description');
+        $review->status = 0;
+        $review->user = $user->id;
+        $review->save();
+        
+        Storage::putFileAs($upload_folder, $file, $filename);
+        return redirect()->route('home');
     }
 
     public function exit()

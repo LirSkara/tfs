@@ -19,3 +19,7 @@ Route::get('/exit', [AuthController::class,'exit']);
 
 //Роуты для личного кабинета
 Route::get('/cabinet', [AuthController::class,'cabinet'])->name('cabinet');
+Route::get('/search', [AuthController::class,'search'])->name('search');
+
+Route::get('/add_content', [AuthController::class,'add_content'])->name('add_content');
+Route::post('/add_content', [AuthController::class,'add_content_p']);

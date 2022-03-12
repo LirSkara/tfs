@@ -2,7 +2,7 @@
 @section('title')Главная страница@endsection
 @section('content')
     <div class="container px-0 pt-lg-5">
-        <div class="border-bottom fs-5 p-2">
+        <div class="fs-5 p-3">
             <div class="d-flex bd-highlight">
                 <div class="w-100 bd-highlight">
                     <div class="fw-normal fs-2">{{ Auth::user()->login }}</div>
@@ -20,7 +20,7 @@
             </div>
             
         </div>
-        <div class="my-3">
+        <div class="">
             <div class="d-flex bd-highlight text-center">
                 <div class="p-2 flex-fill bd-highlight">
                     <img src="http://5dreal.com/wp-content/uploads/2016/03/image-1-1024x576.jpg" class="rounded-circle img-ava-cabinet" alt="">
@@ -57,9 +57,15 @@
               <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <div class="row row-cols-3 g-1 m-1">
-                        <div class="col">
-                            <img src="https://prikolnye-kartinki.ru/img/picture/Jan/25/cdad148402fac07fa49fb563c1e098ad/6.jpg" class="img-lent-cabinet" alt="">
-                        </div>
+                        
+                        @foreach($content as $item)
+                            @if($item->user == $user->id)
+                                <div class="col">
+                                    <img src="/storage/{{$item->user}}/media/{{$item->media}}" class="img-lent-cabinet" alt="/storage/{{$item->user}}/media/{{$item->media}}">
+                                </div>
+                            @endif
+                        @endforeach
+
                     </div>
                 </div>
               </div>
