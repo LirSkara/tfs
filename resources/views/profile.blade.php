@@ -1,11 +1,11 @@
-@extends('layout.notop')
+@extends('layout.notop_profile')
 @section('title')Главная страница@endsection
 @section('content')
     <div class="container px-0 pt-lg-5">
         <div class="fs-5 py-2">
             <div class="d-flex bd-highlight border-bottom px-3 pb-2">
                 <div class="w-100 bd-highlight">
-                    <div class="fw-normal fs-2">{{ Auth::user()->login }}</div>
+                    <div class="fw-normal fs-2">{{ $user->login }}</div>
                 </div>
                 <div class="flex-shrink-1 bd-highlight">
                     <div class="dropdown">
@@ -13,9 +13,9 @@
                             <i class="bi bi-three-dots-vertical"></i>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                          <li><a class="dropdown-item text-danger" href="/exit">Выход из аккаунта</a></li>
+                          <li><a href="" class="dropdown-item">Пожаловаться</a></li>
                         </ul>
-                      </div>
+                    </div>
                 </div>
             </div>
             
@@ -23,10 +23,10 @@
         <div class="">
             <div class="d-flex bd-highlight text-center">
                 <div class="p-2 flex-fill bd-highlight">
-                    @if($avatar->where('user',$user->id)->count() == 0)
-                    <a href="" data-bs-toggle="modal" data-bs-target="#avatar"><img src="/assets/images/avatar.png" alt="mdo" class="rounded-circle img-ava-cabinet"></a>
+                    @if($avatar_c == 0)
+                    <img src="/assets/images/avatar.png" alt="mdo" class="rounded-circle img-ava-cabinet">
                     @else
-                        <a href="" data-bs-toggle="modal" data-bs-target="#avatar"><img src="/storage/{{$user->id}}/avatars/{{$my_avatar}}" class="rounded-circle img-ava-cabinet" alt=""></a>
+                        <img src="/storage/{{$user->id}}/avatars/{{$avatar->avatar}}" class="rounded-circle img-ava-cabinet" alt="">
                     @endif
                 </div>
                 <div class="p-2 flex-fill bd-highlight align-self-center">
@@ -45,6 +45,14 @@
 
               <div class="px-3"><a href="#" class="text-decoration-none text-dark">Задать заголовок</a></div>
               <div class="px-3 fw-light text-muted"><a href="#" class="text-decoration-none text-muted">Заполнить описание</a></div>
+            
+              <div class="px-3 my-2">
+                  @if($n_followers->where('user',$user->id)->orWhere('follower',Auth::user()->id)->count() == 0)
+                    <a href="/follow/{{$user->id}}" class="btn btn-primary w-100">Подписаться</a>
+                  @else
+                    <a href="/un_follow/{{$user->id}}" class="btn btn-outline-secondary w-100">Отписаться</a>
+                  @endif
+              </div>
 
               <div class="d-flex bd-highlight">
                 <div class="p-2 flex-fill bd-highlight">
@@ -59,10 +67,10 @@
                                     <form action="/avatar" class="pb-3" enctype="multipart/form-data" method="POST">
                                         @csrf
                                         <div class="text-center px-3">
-                                            @if($avatar->where('user',$user->id)->count() == 0)
+                                            @if($avatar_c == 0)
                                                 <img src="/assets/images/avatar.png" alt="mdo" class="rounded-circle mb-3" width="180" height="180">
                                             @else
-                                                <img src="/storage/{{$user->id}}/avatars/{{$my_avatar}}" alt="mdo" class="rounded-circle mb-3" width="180" height="180">
+                                                <img src="/storage/{{$user->id}}/avatars/{{$avatar}}" alt="mdo" class="rounded-circle mb-3" width="180" height="180">
                                             @endif
                                         </div>
                                         <input class="form-control mb-1" name="avatar" type="file" id="avatar">
@@ -96,10 +104,10 @@
                                         <div class="card border-0 w-100">
                                             <div class="d-flex bd-highlight px-2">
                                                 <div class="py-2 w-100 bd-highlight">
-                                                    @if($avatar->where('user',$user->id)->count() == 0)
+                                                    @if($avatar_c == 0)
                                                         <img src="/assets/images/avatar.png" class="rounded-circle img-ava-lent" alt="">
                                                     @else
-                                                        <img src="/storage/{{$user->id}}/avatars/{{$my_avatar}}" class="rounded-circle img-ava-lent" alt="">
+                                                        <img src="/storage/{{$user->id}}/avatars/{{$avatar}}" class="rounded-circle img-ava-lent" alt="">
                                                     @endif
                                                     <span class="fw-bold">{{$user->login}}</span>
                                                 </div>
